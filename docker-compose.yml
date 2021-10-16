@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    ports:
+      - 9090:9090
+    networks:
+      - monitoring
+    volumes:
+      - ./conf/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:8.2.1
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
+    volumes:
+      - ./conf/grafana/provisioning:/etc/grafana/provisioning
+      - grafama-data:/var/lib/grafana
+
+  speedtest-ookla:
+    build: .
+    ports:
+      - 9000:9000
+    networks:
+      - monitoring    
+
+
+networks:
+  monitoring:
+volumes:
+  prometheus-data:
+  grafama-data:
+
