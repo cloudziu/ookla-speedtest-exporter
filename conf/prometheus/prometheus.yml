@@ -10,7 +10,7 @@ scrape_configs:
           - 'prometheus:9090'
 
   - job_name: speedtest-ookla
-    scrape_interval: 40s
+    scrape_interval: 30m
     scrape_timeout: 30s
     metrics_path: /metrics
     static_configs:
