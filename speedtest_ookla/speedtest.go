@@ -14,15 +14,17 @@ var (
 	binaryArgs = []string{"-f", "json"}
 )
 
+// Client stores information about speedtest result
 type Client struct {
-	Download     float64
-	Upload       float64
-	Latency      float64
-	Jitter       float64
-	PacketLoss   float64
+	Download   float64
+	Upload     float64
+	Latency    float64
+	Jitter     float64
+	PacketLoss float64
 }
 
-type SpeedtestResult struct {
+// SpeedtestResuls unmarshalded structure of speedtest cli response
+type speedtestResult struct {
 	Ping struct {
 		Jitter  float64 `json:"jitter"`
 		Latency float64 `json:"latency"`
@@ -45,9 +47,9 @@ func (c *Client) RunSpeedtest() {
 		log.Println(err)
 	}
 
-	r := SpeedtestResult{}
+	r := &speedtestResult{}
 
-	if err = json.Unmarshal(out, &r); err != nil {
+	if err = json.Unmarshal(out, r); err != nil {
 		log.Println("Error executing speedtest, set metrics to 0")
 		c.setMetricsToZero()
 	} else {
@@ -88,13 +90,13 @@ func (c *Client) setMetricsToZero() {
 	c.PacketLoss = 0
 }
 
-// Convert Bytes to Megabits
+// bytesToMegabits Convert Bytes to Megabits
 func bytesToMegabits(bytes int) float64 {
 	result := ((bytes * 8) / 1024) / 1024
 	return float64(result)
 }
 
-// check if speedtest is installed
+// InitialCheck checks if speedtest app is installed
 func InitialCheck() {
 	// check if speedtest is installed
 	log.Println("Run dependency check")

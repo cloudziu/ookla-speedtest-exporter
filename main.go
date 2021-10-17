@@ -23,7 +23,10 @@ var (
 	//go:embed html/index.html
 	defaultPage []byte
 
-	EXPORTER_PORT    = "9000" // Default prometheus exporter
+	// EXPORTER_PORT default prometheus exporter
+	EXPORTER_PORT    = "9000" 
+
+	// METRICS_ENDPOINT default prometheus metrics path
 	METRICS_ENDPOINT = "/metrics"
 
 	download = prometheus.NewDesc(
@@ -53,10 +56,12 @@ var (
 	)
 )
 
+//  Speedtest type that implements prometheus.Collector.
 type Speedtest struct {
 	*speedtest.Client
 }
 
+// NewSpeedtest return new speedtest client type
 func NewSpeedtest() *Speedtest {
 	return &Speedtest{
 		&speedtest.Client{},
