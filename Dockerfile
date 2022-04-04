@@ -25,7 +25,8 @@ RUN apt-get update && \
 
 # Accept license, speedtest will automaticly start the test, 
 # in case that the program fails, ignore error by || true
-RUN speedtest --accept-license --accept-gdpr  || true
+
+# RUN speedtest --accept-license --accept-gdpr  || true
 
 COPY --from=builder /app/speedtest-exporter /app/speedtest-exporter
 CMD ["/app/speedtest-exporter"]

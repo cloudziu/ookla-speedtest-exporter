@@ -15,6 +15,18 @@ Speedtest tool: https://www.speedtest.net/apps/cli wraped in Golang code to expo
 # Provided Grafana dashboard
 ![Alt text](dashboard.png "Included dashboard")
 
+# Build ookla-speedtest-exporter
+Build the exporter image.
+```bash
+docker container run --help | grep dockerfile
+```
+
+# Accept license
+Ookla Speedtest cli app requires to accepst licens.
+```bash
+docker container run --rm -v "$(pwd)"/license/ookla:/root/.config/ookla --name acceptLicense
+```
+
 # Running exporter in docker-compose
 This will start the speedtest-exporter container with configured Prometheus and Grafana.
 ```bash
