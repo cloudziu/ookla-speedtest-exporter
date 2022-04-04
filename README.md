@@ -18,7 +18,7 @@ Speedtest tool: https://www.speedtest.net/apps/cli wraped in Golang code to expo
 # Build ookla-speedtest-exporter
 Build the exporter image.
 ```bash
-docker container run --help | grep dockerfile
+docker build . -t ookla-speedtest-exporter:local
 ```
 
 # Accept license
